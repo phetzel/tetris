@@ -7,39 +7,71 @@ const CONSTANTS = {
 }
 
 class Block {
-    constructor(height) {
-        this.height = height;
+    constructor(ctx, game) {
+        this.ctx = ctx;
+        this.game = game;
         this.x = 0;
         this.y = 0;
+
+        this.landed = false;
     }
 
-    draw(ctx) {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
+    draw() {
+        this.ctx.fillStyle = 'green';
+        this.ctx.fillRect(this.x, this.y, CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
     }
 
     fall() {
         this.y += CONSTANTS.DROP_SPEED;
     }
 
-    animate(ctx) {
-        this.draw(ctx);
+    animate() {
+        this.draw();
         if (this.canFall()) {
             this.fall();
-        };
+        } else {
+            this.landed = true;
+        }
     }
 
     canFall() {
-        if (this.y < 500) {
-            return true;
+        let fallable = true;
+        if (this.y > 600) {
+            fallable = false;
         };
-        return false;
+
+        this.game.allBlocks.forEach(block => {
+            if (block.x === this.x && block.y === this.y + CONSTANTS.HEIGHT) {
+                fallable = false;
+            }
+        });
+
+        return fallable;
     }
 
     move() {
-        key("a", () => { this.x -= CONSTANTS.WIDTH });
-        key("d", () => { this.x += CONSTANTS.WIDTH });
+        key("a", () => { 
+            if (this.canMoveLeft() && (!this.landed)) {
+                this.x -= CONSTANTS.WIDTH;
+            }
+        });
+        key("d", () => { 
+            if (this.canMoveRight() && (!this.landed)) {
+                this.x += CONSTANTS.WIDTH; 
+            }
+        });
     }
+
+    canMoveLeft() {
+        if (this.x > 1) return true;
+        return false;
+    }
+
+    canMoveRight() {
+        if (this.x < CONSTANTS.WIDTH * 9) return true;
+        return false;
+    }
+
 }
 
 module.exports = Block;

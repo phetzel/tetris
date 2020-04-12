@@ -3,15 +3,12 @@ const Block = require("./block");
 
 document.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('my-canvas');
-    canvas.width = window.innerWidth / 3;
-    canvas.height = window.innerHeight;
+    canvas.width = 500;
+    canvas.height = 650;
 
     const ctx = canvas.getContext('2d');
 
-    const g = new Game();
+    const g = new Game(ctx);
+    g.play();
 
-    g.animate(ctx);
-
-
-    
 })
