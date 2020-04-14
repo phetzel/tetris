@@ -1,23 +1,26 @@
 
 
 const CONSTANTS = {
-    DROP_SPEED: 2,
+    DROP_SPEED: 5,
     WIDTH: 50,
     HEIGHT: 50,
 }
 
 class Block {
-    constructor(ctx, game) {
+    constructor(ctx, game, options) {
         this.ctx = ctx;
         this.game = game;
         this.x = 0;
         this.y = 0;
+        // this.color = options.color
+        this.color = 'green';
+        
 
         this.landed = false;
     }
 
     draw() {
-        this.ctx.fillStyle = 'green';
+        this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
     }
 
@@ -36,6 +39,7 @@ class Block {
 
     canFall() {
         let fallable = true;
+
         if (this.y > 600) {
             fallable = false;
         };
@@ -70,6 +74,10 @@ class Block {
     canMoveRight() {
         if (this.x < CONSTANTS.WIDTH * 9) return true;
         return false;
+    }
+
+    drop() {
+        this.y += CONSTANTS.HEIGHT;
     }
 
 }

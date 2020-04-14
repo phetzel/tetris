@@ -1,4 +1,5 @@
 const Block = require("./block");
+// const Piece = require("./piece");
 
 const CONSTANTS = {
     BG_COLOR: 'pink',
@@ -12,6 +13,7 @@ class Game {
         this.ctx = ctx;
         this.height = CONSTANTS.DIM_Y;
         this.block = new Block(this.ctx, this.game);
+
         this.allBlocks = [];
     }
 
@@ -30,7 +32,9 @@ class Game {
         if (!this.block.landed) {
             requestAnimationFrame(this.animate.bind(this))
         } else {
-            this.nextBlock();
+            this.allBlocks.push(this.block);
+            this.completeLines();
+            this.block = new Block(this.ctx, this.game);
             this.play();
         }
     }
@@ -40,10 +44,33 @@ class Game {
         this.animate();
     }
 
-    nextBlock() {
-        this.allBlocks.push(this.block);
-        console.log(this.allBlocks)
-        this.block = new Block(this.ctx, this.game);
+    completeLines() {
+        const lineHash = {};
+        let lines = 0;
+        
+        this.allBlocks.forEach(block => {
+            if (!lineHash[block.y]) {
+                lineHash[block.y] = 1;
+            } else {
+                lineHash[block.y] += 1;
+            };
+        })
+        
+        Object.keys(lineHash).forEach(row => {
+            if (lineHash[row] === 10) {
+                this.allBlocks = this.allBlocks.filter(block => {
+                    return block.y.toString() !== row;
+                });
+
+                lines += 1;
+
+                this.allBlocks.forEach(block => {
+                    if (block.y < parseInt(row)) {
+                        block.drop();
+                    }
+                })
+            }
+        })
     }
 
 }
