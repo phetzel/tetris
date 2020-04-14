@@ -1,5 +1,5 @@
 const Block = require("./block");
-// const Piece = require("./piece");
+const Piece = require("./piece");
 
 const CONSTANTS = {
     BG_COLOR: 'pink',
@@ -12,7 +12,7 @@ class Game {
         this.game = this;
         this.ctx = ctx;
         this.height = CONSTANTS.DIM_Y;
-        this.block = new Block(this.ctx, this.game);
+        this.piece = new Piece(this.ctx, this.game);
 
         this.allBlocks = [];
     }
@@ -27,20 +27,24 @@ class Game {
 
     animate() {
         this.draw();
-        this.block.animate();
+        this.piece.animate();
 
-        if (!this.block.landed) {
+        if (!this.piece.landed) {
             requestAnimationFrame(this.animate.bind(this))
         } else {
-            this.allBlocks.push(this.block);
+            
+            this.piece.blocks.forEach(block => {
+                this.allBlocks.push(block);
+            });
+
             this.completeLines();
-            this.block = new Block(this.ctx, this.game);
+            this.piece = new Piece(this.ctx, this.game);
             this.play();
         }
     }
 
     play() {
-        this.block.move();
+        this.piece.move();
         this.animate();
     }
 

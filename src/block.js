@@ -10,13 +10,10 @@ class Block {
     constructor(ctx, game, options) {
         this.ctx = ctx;
         this.game = game;
-        this.x = 0;
-        this.y = 0;
-        // this.color = options.color
-        this.color = 'green';
-        
-
-        this.landed = false;
+        this.x = options.x;
+        this.y = options.y;
+        this.width = CONSTANTS.WIDTH;
+        this.color = options.color;
     }
 
     draw() {
@@ -30,11 +27,7 @@ class Block {
 
     animate() {
         this.draw();
-        if (this.canFall()) {
-            this.fall();
-        } else {
-            this.landed = true;
-        }
+        this.fall();
     }
 
     canFall() {
@@ -53,18 +46,18 @@ class Block {
         return fallable;
     }
 
-    move() {
-        key("a", () => { 
-            if (this.canMoveLeft() && (!this.landed)) {
-                this.x -= CONSTANTS.WIDTH;
-            }
-        });
-        key("d", () => { 
-            if (this.canMoveRight() && (!this.landed)) {
-                this.x += CONSTANTS.WIDTH; 
-            }
-        });
-    }
+    // move() {
+    //     key("a", () => { 
+    //         if (this.canMoveLeft() && (!this.landed)) {
+    //             this.x -= CONSTANTS.WIDTH;
+    //         }
+    //     });
+    //     key("d", () => { 
+    //         if (this.canMoveRight() && (!this.landed)) {
+    //             this.x += CONSTANTS.WIDTH; 
+    //         }
+    //     });
+    // }
 
     canMoveLeft() {
         if (this.x > 1) return true;
