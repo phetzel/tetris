@@ -19,7 +19,9 @@ class Block {
     draw() {
         this.ctx.fillStyle = this.color;
         this.ctx.fillRect(this.x, this.y, CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
+        this.ctx.strokeRect(this.x, this.y, CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
     }
+
 
     fall() {
         this.y += CONSTANTS.DROP_SPEED;
@@ -46,18 +48,6 @@ class Block {
         return fallable;
     }
 
-    // move() {
-    //     key("a", () => { 
-    //         if (this.canMoveLeft() && (!this.landed)) {
-    //             this.x -= CONSTANTS.WIDTH;
-    //         }
-    //     });
-    //     key("d", () => { 
-    //         if (this.canMoveRight() && (!this.landed)) {
-    //             this.x += CONSTANTS.WIDTH; 
-    //         }
-    //     });
-    // }
 
     canMoveLeft() {
         if (this.x > 1) return true;
