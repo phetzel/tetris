@@ -11,6 +11,7 @@ class Game {
     constructor (ctx) {
         this.game = this;
         this.ctx = ctx;
+        this.score = 0;
         this.height = CONSTANTS.DIM_Y;
         this.piece = new Piece(this.ctx, this.game);
 
@@ -32,14 +33,19 @@ class Game {
         if (!this.piece.landed) {
             requestAnimationFrame(this.animate.bind(this))
         } else {
-            
+
             this.piece.blocks.forEach(block => {
                 this.allBlocks.push(block);
             });
 
             this.completeLines();
-            this.piece = new Piece(this.ctx, this.game);
-            this.play();
+
+            if (this.gameOver()) {
+                alert(this.score);
+            } else {
+                this.piece = new Piece(this.ctx, this.game);
+                this.play();
+            }
         }
     }
 
@@ -75,6 +81,12 @@ class Game {
                 })
             }
         })
+
+        this.score += lines;
+    }
+
+    gameOver () {
+        return this.allBlocks.some(block => block.y < 0);
     }
 
 }

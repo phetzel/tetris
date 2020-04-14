@@ -1,0 +1,7 @@
+body {
+    background-image: url('../assets/eezy_68-01.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

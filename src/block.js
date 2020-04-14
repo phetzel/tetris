@@ -50,13 +50,41 @@ class Block {
 
 
     canMoveLeft() {
-        if (this.x > 1) return true;
-        return false;
+        let moveable = true;
+
+        if (this.x < CONSTANTS.WIDTH) {
+            moveable = false;
+        };
+        
+        this.game.allBlocks.forEach(block => {
+            if (
+                block.x === (this.x - CONSTANTS.WIDTH) &&
+                block.y < (this.y + CONSTANTS.HEIGHT)
+                ) {
+                    moveable = false;
+                }
+        })
+
+        return moveable;
     }
 
     canMoveRight() {
-        if (this.x < CONSTANTS.WIDTH * 9) return true;
-        return false;
+        let moveable = true;
+
+        if (this.x >= CONSTANTS.WIDTH * 9) {
+            moveable = false;
+        }
+        
+        this.game.allBlocks.forEach(block => {
+            if (
+                block.x === (this.x + CONSTANTS.WIDTH) &&
+                block.y < (this.y + CONSTANTS.HEIGHT)
+            ) {
+                moveable = false;
+            }
+        })
+
+        return moveable;
     }
 
     drop() {

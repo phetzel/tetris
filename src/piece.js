@@ -35,6 +35,20 @@ const PIECES = [
         {y: -150, x: 200, color: 'green'},
         {y: -100, x: 200, color: 'green'},
         {y: -50, x: 200, color: 'green'},
+    ],
+    //z
+    [
+        {y: -100, x: 200, color: 'grey'},
+        {y: -100, x: 250, color: 'grey'},
+        {y: -50, x: 250, color: 'grey'},
+        {y: -50, x: 300, color: 'grey'},
+    ],
+    //z rev
+    [
+        { y: -100, x: 250, color: 'yellow' },
+        { y: -100, x: 300, color: 'yellow' },
+        { y: -50, x: 200, color: 'yellow' },
+        { y: -50, x: 250, color: 'yellow' },
     ]
 ]
 
