@@ -7,9 +7,10 @@ const CONSTANTS = {
 }
 
 class Block {
-    constructor(ctx, game, options) {
+    constructor(ctx, game, piece, options) {
         this.ctx = ctx;
         this.game = game;
+        this.piece = piece;
         this.x = options.x;
         this.y = options.y;
         this.width = CONSTANTS.WIDTH;
@@ -87,8 +88,50 @@ class Block {
         return moveable;
     }
 
+
     drop() {
         this.y += CONSTANTS.HEIGHT;
+    }
+
+    canRotate(dir) {
+        let rotatable = true;
+        const rotated = this.rotatePos(dir, true);
+
+
+
+        if (rotated[0] < 0 || rotated[0] > CONSTANTS.WIDTH * 10
+            || rotated[1] > 600) {
+            rotatable = false;
+        }
+        
+        this.game.allBlocks.forEach(block => {
+            if (block.x === rotated[0] && block.y < (rotated.y + CONSTANTS.HEIGHT)) {
+                rotatable = false;
+            }
+        })
+
+        return rotatable;
+    }
+
+    rotatePos(dir, check) {
+        let ro;
+        (dir === "count") ? ro = [[0, -1], [1, 0]] : ro = [[0, 1], [-1, 0]];
+
+        const pivot = [this.piece.blocks[0].x, this.piece.blocks[0].y];
+
+        const relVec = [this.x - pivot[0], this.y - pivot[1]];
+        const transVec = [
+            ro[0][0] * relVec[0] + ro[0][1] *relVec[1],
+            ro[1][0] * relVec[0] + ro[1][1] * relVec[1]
+        ];
+
+        if(check === true) {
+            let rotatedPos = [pivot[0] + transVec[0], pivot[1] + transVec[1]];
+            return rotatedPos;
+        } else {
+            this.x = pivot[0] + transVec[0];
+            this.y = pivot[1] + transVec[1];
+        }
     }
 
 }

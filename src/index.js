@@ -1,5 +1,5 @@
 const Game = require("./game");
-const Block = require("./block");
+const Piece = require("./piece");
 
 document.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('my-canvas');
@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const ctx = canvas.getContext('2d');
 
     const g = new Game(ctx);
-    g.play();
 
+    g.play();
+    
 })
