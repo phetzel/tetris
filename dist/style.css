@@ -2,6 +2,8 @@ body {
     background-image: url('../assets/eezy_68-01.jpg');
     background-size: cover;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
+
+

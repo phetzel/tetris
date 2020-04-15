@@ -23,6 +23,11 @@ class Block {
         this.ctx.strokeRect(this.x, this.y, CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
     }
 
+    display(sideCtx) {
+        sideCtx.fillStyle = this.color;
+        sideCtx.fillRect(this.x - 125, this.y + 200, CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
+        sideCtx.strokeRect(this.x - 125, this.y + 200, CONSTANTS.WIDTH, CONSTANTS.HEIGHT);
+    }
 
     fall() {
         this.y += CONSTANTS.DROP_SPEED;

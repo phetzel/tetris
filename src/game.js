@@ -2,18 +2,20 @@ const Block = require("./block");
 const Piece = require("./piece");
 
 const CONSTANTS = {
-    BG_COLOR: 'pink',
+    BG_COLOR: '#9FB4C7',
     DIM_X: 500,
     DIM_Y: 650
 }
 
 class Game {
-    constructor (ctx) {
+    constructor (ctx, sideCtx) {
         this.game = this;
         this.ctx = ctx;
+        this.sideCtx = sideCtx;
         this.score = 0;
         this.height = CONSTANTS.DIM_Y;
         this.piece = new Piece(this.ctx, this.game);
+        this.nextPiece = new Piece(this.ctx, this.game)
 
         this.allBlocks = [];
     }
@@ -26,8 +28,17 @@ class Game {
         this.allBlocks.forEach(block => block.draw());
     }
 
+
+    display() {
+        this.sideCtx.fillStyle = CONSTANTS.BG_COLOR;
+        this.sideCtx.fillRect(0, 0, 300, 300);
+
+        this.nextPiece.display(this.sideCtx);
+    }
+
     animate() {
         this.draw();
+        this.updateScore();
         this.piece.animate();
 
         if (!this.piece.landed) {
@@ -43,13 +54,15 @@ class Game {
             if (this.gameOver()) {
                 alert(this.score);
             } else {
-                this.piece = new Piece(this.ctx, this.game);
+                this.piece = this.nextPiece;
+                this.nextPiece = new Piece(this.ctx, this.game);
                 this.play();
             }
         }
     }
 
     play() {
+        this.display();
         this.piece.move();
         this.animate();
     }
@@ -87,6 +100,12 @@ class Game {
 
     gameOver () {
         return this.allBlocks.some(block => block.y < 0);
+    }
+
+    updateScore() {
+        const score = document.getElementById('score');
+
+        score.innerHTML = this.score;
     }
 
 }
