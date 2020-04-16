@@ -1,7 +1,7 @@
 
 
 const CONSTANTS = {
-    DROP_SPEED: 5,
+    DROP_SPEED: 2,
     WIDTH: 50,
     HEIGHT: 50,
 }

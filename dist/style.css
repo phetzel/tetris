@@ -6,4 +6,18 @@ body {
     align-items: center;
 }
 
+.border {
+    border: 6px solid #000000;
+}
+
+
+#score {
+    background-color: #9FB4C7;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+
 
