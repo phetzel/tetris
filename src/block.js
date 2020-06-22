@@ -7,7 +7,7 @@ const CONSTANTS = {
 }
 
 class Block {
-    constructor(ctx, game, piece, options) {
+    constructor(ctx, game, piece, options, level) {
         this.ctx = ctx;
         this.game = game;
         this.piece = piece;
@@ -15,6 +15,7 @@ class Block {
         this.y = options.y;
         this.width = CONSTANTS.WIDTH;
         this.color = options.color;
+        this.level = level;
     }
 
     draw() {
@@ -30,7 +31,7 @@ class Block {
     }
 
     fall() {
-        this.y += CONSTANTS.DROP_SPEED;
+        this.y += CONSTANTS.DROP_SPEED * this.level;
     }
 
     animate() {
@@ -95,7 +96,7 @@ class Block {
 
 
     drop() {
-        this.y += CONSTANTS.HEIGHT;
+        this.y += CONSTANTS.HEIGHT * this.level;
     }
 
     canRotate(dir) {

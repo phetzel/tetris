@@ -1,4 +1,3 @@
-const Block = require("./block");
 const Piece = require("./piece");
 
 const CONSTANTS = {
@@ -14,8 +13,8 @@ class Game {
         this.sideCtx = sideCtx;
         this.score = 0;
         this.height = CONSTANTS.DIM_Y;
-        this.piece = new Piece(this.ctx, this.game);
-        this.nextPiece = new Piece(this.ctx, this.game)
+        this.piece = new Piece(this.ctx, this.game, this.level());
+        this.nextPiece = new Piece(this.ctx, this.game, this.level());
 
         this.allBlocks = [];
     }
@@ -55,7 +54,7 @@ class Game {
                 alert(this.score);
             } else {
                 this.piece = this.nextPiece;
-                this.nextPiece = new Piece(this.ctx, this.game);
+                this.nextPiece = new Piece(this.ctx, this.game, this.level());
                 this.play();
             }
         }
@@ -120,6 +119,13 @@ class Game {
         const score = document.getElementById('score');
 
         score.innerHTML = this.score;
+    }
+
+    level() {
+        const level = parseInt(this.score.toString().slice(0, -2));
+        console.log(level);
+
+        return level ? level + 1 : 1;
     }
 
 }

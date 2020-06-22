@@ -61,21 +61,21 @@ const PIECES = [
 ]
 
 class Piece {
-    constructor(ctx, game) {
+    constructor(ctx, game, level) {
         this.ctx = ctx;
         this.game = game;
         this.blocks = [];
         this.landed = false;
+        this.level = level;
 
         this.randPiece();
     }
 
     randPiece() {
-
         let i = Math.floor((Math.random() * PIECES.length));
 
         PIECES[i].forEach(params => {
-            this.blocks.push(new Block(this.ctx, this.game, this, params));
+            this.blocks.push(new Block(this.ctx, this.game, this, params, this.level));
         })
     }
 
