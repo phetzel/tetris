@@ -136,6 +136,7 @@ class Game {
             this.allBlocks = [];
             this.piece = new Piece(this.ctx, this.game, this.level());
             this.nextPiece = new Piece(this.ctx, this.game, this.level());
+            this.display();
         });
     }
 
