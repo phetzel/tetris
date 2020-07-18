@@ -31,7 +31,7 @@ class Block {
     }
 
     fall() {
-        this.y += CONSTANTS.DROP_SPEED * this.level;
+        this.y += CONSTANTS.DROP_SPEED;
     }
 
     animate() {

@@ -51,7 +51,9 @@ class Game {
             this.completeLines();
 
             if (this.gameOver()) {
-                alert(this.score);
+                this.ctx.font = "30px Arial";
+                this.ctx.fillStyle = "Black";
+                this.ctx.fillText(`Game Over! Final Score: ${this.score}`, 10, 320);
             } else {
                 this.piece = this.nextPiece;
                 this.nextPiece = new Piece(this.ctx, this.game, this.level());
@@ -63,6 +65,7 @@ class Game {
     play() {
         this.display();
         this.piece.move();
+        this.reset();
         this.animate();
     }
 
@@ -123,9 +126,17 @@ class Game {
 
     level() {
         const level = parseInt(this.score.toString().slice(0, -2));
-        console.log(level);
 
         return level ? level + 1 : 1;
+    }
+
+    reset() {
+        key("r", () => {
+            this.score = 0;
+            this.allBlocks = [];
+            this.piece = new Piece(this.ctx, this.game, this.level());
+            this.nextPiece = new Piece(this.ctx, this.game, this.level());
+        });
     }
 
 }
