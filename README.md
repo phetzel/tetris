@@ -19,5 +19,4 @@ A website allowing a user to play the classic game of tetris.
 
 ### Future Features
 - Save scores.
-- Display instuctions.
 
